@@ -4,40 +4,106 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Premier – Foma 200</title>
+
 <style>
     body { margin: 0; background: #111; color: #eee; font-family: sans-serif; }
-    h1 { text-align: center; margin: 20px 0; font-weight: 300; }
-    .container { max-width: 1000px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-    .container img { width: 100%; border-radius: 6px; }
-    a.back { display: block; text-align: center; margin: 20px; color: #fff; text-decoration: none; }
-    a.back:hover { text-decoration: underline; }
+    h1, h2 { text-align: center; font-weight: 300; }
+    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+    /* Image grid */
+    .grid { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+        gap: 12px; 
+    }
+    img { 
+        width: 100%; 
+        height: auto; 
+        border-radius: 6px; 
+        cursor: pointer; 
+        transition: 0.2s;
+    }
+    img:hover { opacity: 0.8; }
+
+    /* Lightbox */
+    .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.8);
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
+    .lightbox img {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 6px;
+    }
 </style>
 </head>
 <body>
 
 <h1>Premier – Foma 200</h1>
-<a class="back" href="index.html">&larr; Back to all films</a>
+<div class="container">
 
-<div class="container" id="gallery"></div>
+    <h2>Landscape</h2>
+    <div id="landscape" class="grid"></div>
+
+    <h2>Portrait</h2>
+    <div id="portrait" class="grid"></div>
+
+    <p style="text-align:center; margin-top:40px;">
+        <a href="index.html" style="color:#6cf; text-decoration:none;">← Back to all films</a>
+    </p>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+    <img id="lightbox-img">
+</div>
 
 <script>
-    const folder = 'photos/premier-foma200/';
-    const gallery = document.getElementById('gallery');
-
-    const images = [
-        "dok001.jpg","dok002.jpg","dok003.jpg","dok004.jpg","dok005.jpg",
-        "dok006.jpg","dok007.jpg","dok008.jpg","dok009.jpg","dok010.jpg",
-        "dok011.jpg","dok012.jpg","dok013.jpg","dok014.jpg","dok015.jpg",
-        "dok016.jpg","dok017.jpg","dok018.jpg","dok019.jpg","dok020.jpg",
-        "dok021.jpg","dok022.jpg","dok023.jpg","dok024.jpg","dok025.jpg",
-        "dok026.jpg","dok027.jpg","dok028.jpg","dok029.jpg","dok030.jpg",
-        "dok031.jpg","dok032.jpg","dok033.jpg"
+    // Your filenames
+    const files = [
+        "dok001.jpg", "dok002.jpg", "dok003.jpg", "dok004.jpg", "dok005.jpg",
+        "dok006.jpg", "dok007.jpg", "dok008.jpg", "dok009.jpg", "dok010.jpg",
+        "dok011.jpg", "dok012.jpg", "dok013.jpg", "dok014.jpg", "dok015.jpg",
+        "dok016.jpg", "dok017.jpg", "dok018.jpg", "dok019.jpg", "dok020.jpg",
+        "dok021.jpg", "dok022.jpg", "dok023.jpg", "dok024.jpg", "dok025.jpg",
+        "dok026.jpg", "dok027.jpg", "dok028.jpg", "dok029.jpg", "dok030.jpg",
+        "dok031.jpg", "dok032.jpg", "dok033.jpg"
     ];
 
-    images.forEach(file => {
-        const img = document.createElement('img');
-        img.src = folder + file;
-        gallery.appendChild(img);
+    const landscape = document.getElementById("landscape");
+    const portrait = document.getElementById("portrait");
+
+    // Categorize images by aspect ratio
+    files.forEach(f => {
+        const img = new Image();
+        img.src = "photos/premier-foma200/" + f;
+
+        img.onload = () => {
+            const wrapper = document.createElement("div");
+            const clone = img.cloneNode();
+            wrapper.appendChild(clone);
+
+            if (img.width > img.height) {
+                landscape.appendChild(wrapper);
+            } else {
+                portrait.appendChild(wrapper);
+            }
+
+            // Lightbox click handler
+            clone.addEventListener("click", () => {
+                document.getElementById("lightbox-img").src = img.src;
+                document.getElementById("lightbox").style.display = "flex";
+            });
+        };
+    });
+
+    // Close lightbox
+    document.getElementById("lightbox").addEventListener("click", () => {
+        document.getElementById("lightbox").style.display = "none";
     });
 </script>
 
