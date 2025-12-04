@@ -125,65 +125,59 @@ img:hover {
 <script>
     // Your filenames
     const files = [
-        "dok001.jpg", "dok002.jpg", "dok003.jpg", "dok004.jpg", "dok005.jpg",
-        "dok006.jpg", "dok007.jpg", "dok008.jpg", "dok009.jpg", "dok010.jpg",
-        "dok011.jpg", "dok012.jpg", "dok013.jpg", "dok014.jpg", "dok015.jpg",
-        "dok016.jpg", "dok017.jpg", "dok018.jpg", "dok019.jpg", "dok020.jpg",
-        "dok021.jpg", "dok022.jpg", "dok023.jpg", "dok024.jpg", "dok025.jpg",
-        "dok026.jpg", "dok027.jpg", "dok028.jpg", "dok029.jpg", "dok030.jpg",
-        "dok031.jpg", "dok032.jpg", "dok033.jpg"
-    ];
+    "dok001.jpg","dok002.jpg","dok003.jpg","dok004.jpg","dok005.jpg",
+    "dok006.jpg","dok007.jpg","dok008.jpg","dok009.jpg","dok010.jpg",
+    "dok011.jpg","dok012.jpg","dok013.jpg","dok014.jpg","dok015.jpg",
+    "dok016.jpg","dok017.jpg","dok018.jpg","dok019.jpg","dok020.jpg",
+    "dok021.jpg","dok022.jpg","dok023.jpg","dok024.jpg","dok025.jpg",
+    "dok026.jpg","dok027.jpg","dok028.jpg","dok029.jpg","dok030.jpg",
+    "dok031.jpg","dok032.jpg","dok033.jpg"
+];
 
-    const landscape = document.getElementById("landscape");
-    const portrait = document.getElementById("portrait");
-
-    // Categorize images by aspect ratio
-    files.forEach(f => {
-        const img = new Image();
-        img.src = "photos/premier-foma200/" + f;
-
-        img.onload = () => {
-            const wrapper = document.createElement("div");
-            const clone = img.cloneNode();
-            wrapper.appendChild(clone);
-
-            if (img.width > img.height) {
-                landscape.appendChild(wrapper);
-            } else {
-                portrait.appendChild(wrapper);
-            }
-
-            // Lightbox click handler
-            clone.addEventListener("click", () => {
-                document.getElementById("lightbox-img").src = img.src;
-                document.getElementById("lightbox").style.display = "flex";
-            });
-        };
-    });
-
-    // Close lightbox
-    document.getElementById("lightbox").addEventListener("click", () => {
-        document.getElementById("lightbox").style.display = "none";
-    });
-
-   // Flatten all images into a single array for slideshow
-const allImages = files.map(f => "photos/premier-foma200/" + f);
+const landscape = document.getElementById("landscape");
+const portrait = document.getElementById("portrait");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const allImages = []; // will store all loaded images
 let currentIndex = 0;
 
-function showImage(index) {
-    currentIndex = index;
-    lightboxImg.src = allImages[currentIndex];
-    lightbox.style.display = "flex";
-}
+// Load images and categorize
+files.forEach((f, i) => {
+    const img = new Image();
+    img.src = "photos/premier-foma200/" + f;
 
-// Update the click handlers to set currentIndex
-document.querySelectorAll('.grid img').forEach((img, i) => {
-    img.addEventListener('click', () => {
-        showImage(i);
-    });
+    img.onload = () => {
+        const wrapper = document.createElement("div");
+        const clone = img.cloneNode();
+        wrapper.appendChild(clone);
+
+        // Add to landscape or portrait
+        if (img.width > img.height) {
+            landscape.appendChild(wrapper);
+        } else {
+            portrait.appendChild(wrapper);
+        }
+
+        // Add to global array for slideshow
+        allImages.push(img.src);
+
+        // Click handler to open lightbox
+        clone.addEventListener("click", () => {
+            currentIndex = allImages.indexOf(img.src);
+            lightboxImg.src = img.src;
+            lightbox.style.display = "flex";
+        });
+    };
 });
 
-// Arrow click handlers
+// Close lightbox on click outside arrows
+lightbox.addEventListener("click", e => {
+    if (e.target === lightbox) {
+        lightbox.style.display = "none";
+    }
+});
+
+// Arrow handlers
 document.getElementById('lightbox-left').addEventListener('click', e => {
     e.stopPropagation();
     currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
