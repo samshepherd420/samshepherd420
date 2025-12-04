@@ -5,37 +5,95 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Film Photography</title>
 <style>
-    body { margin: 0; background: #111; color: #eee; font-family: sans-serif; }
-    h1 { text-align: center; margin: 20px 0; font-weight: 300; }
-    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-    a { 
-        display: block; 
-        padding: 12px 15px; 
-        margin: 10px 0; 
-        background: #222; 
-        color: white; 
-        text-decoration: none; 
-        border-radius: 6px;
+    body {
+        margin: 0;
+        background: #f5f5f5;
+        font-family: sans-serif;
+        color: #111;
+    }
+
+    h1 {
+        text-align: center;
+        margin: 40px 0 20px 0;
+        font-weight: 400;
+        font-size: 2em;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto 50px auto;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .film-card {
+        background: #fff;
+        border-radius: 8px;
+        padding: 15px 20px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        text-align: center;
         transition: 0.2s;
     }
-    a:hover { background: #333; }
+
+    .film-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .film-card a {
+        text-decoration: none;
+        color: #111;
+        font-weight: 500;
+        display: block;
+        font-size: 1.1em;
+    }
+
+    .film-card a:hover {
+        color: #0077cc;
+    }
+
+    @media (max-width: 600px) {
+        .container {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
 </head>
 <body>
 
 <h1>My Film Photography</h1>
+
 <div class="container">
-
-<a href="premier-foma200.html">Premier – Foma 200</a>
-<a href="fuji-svema64-2stops-spain.html">Fuji – svema 64 2 stops – spain</a>
-<a href="fuji-ilfordhp5-palanga.html">Fuji – Ilford Hp5 – Palanga</a>
-<a href="fuji-svema64-2stops-home.html">Fuji – Svema 64 – 2 stops – home</a>
-<a href="fuji-agfa400-london.html">Fuji – Agfa 400 – London</a>
-<a href="konicah35-agfa400-village.html">Konica H35 – AGFA 400 – Village</a>
-<a href="fuji-agfa400-village.html">Fuji – Agfa 400 – Village</a>
-<a href="fuji-1push-foma200.html">Fuji – 1 push Foma200</a>
-<a href="fuji-kentmere100.html">Fuji – Kentmere 100</a>
-
+    <div class="film-card">
+        <a href="premier-foma200.html">Premier – Foma 200</a>
+    </div>
+    <div class="film-card">
+        <a href="fuji-svema64-2stops-spain.html">Fuji – Svema 64 2 stops – Spain</a>
+    </div>
+    <div class="film-card">
+        <a href="fuji-ilfordhp5-palanga.html">Fuji – Ilford HP5 – Palanga</a>
+    </div>
+    <div class="film-card">
+        <a href="fuji-svema64-2stops-home.html">Fuji – Svema 64 – 2 stops – Home</a>
+    </div>
+    <div class="film-card">
+        <a href="fuji-agfa400-london.html">Fuji – Agfa 400 – London</a>
+    </div>
+    <div class="film-card">
+        <a href="konicah35-agfa400-village.html">Konica H35 – Agfa 400 – Village</a>
+    </div>
+    <div class="film-card">
+        <a href="fuji-agfa400-village.html">Fuji – Agfa 400 – Village</a>
+    </div>
+    <div class="film-card">
+        <a href="fuji-1push-foma200.html">Fuji – 1 push Foma200</a>
+    </div>
+    <div class="film-card">
+        <a href="fuji-kentmere100.html">Fuji – Kentmere 100</a>
+    </div>
 </div>
+
 </body>
 </html>
