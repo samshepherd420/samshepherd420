@@ -1,139 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Premier – Foma 200</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #f2f2f2;
-            color: #000;
-            font-family: Arial, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premier – Foma 200</title>
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+<style>
+   body {
+    margin: 20px;
+    background: #f5f5f5;
+    color: #111;
+    font-family: sans-serif;
+}
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: 400;
-        }
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
 
-        .description {
-            max-width: 800px;
-            margin: 0 auto 30px auto;
-            font-size: 16px;
-            line-height: 1.6;
-            color: #333;
-            text-align: center;
-        }
+/* Links on index.html */
+a {
+    display: block;
+    padding: 12px 15px;
+    margin: 10px 0;
+    background: #e4e4e4;
+    color: #111;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+a:hover {
+    background: #d8d8d8;
+}
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 15px;
-        }
+/* Image grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+}
 
-        .grid img {
-            width: 100%;
-            height: auto;
-            cursor: pointer;
-            border-radius: 4px;
-        }
+img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+img:hover {
+    opacity: 0.9;
+}
 
-        /* Lightbox */
-        #lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* small margin so big photos don't touch edges */
+}
 
-        #lightbox img {
-            max-width: 90vw;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 6px;
-        }
-    </style>
+.lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+
+    }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Premier – Foma 200</h1>
 
-        <p class="description">
-            Shot on a <strong>Premier PC-645</strong> with <strong>Foma 200</strong>, pushed one stop.
-            Developed in <strong>Rodinal 1:25</strong> at home, scanned at the library.
-        </p>
+<h1>Premier – Foma 200</h1>
+<div class="container">
+<p class="description">
+        Shot on a <strong>Premier PC-645</strong> with <strong>Foma 200</strong> film.  
+        Developed in <strong>Rodinal 1:25</strong>.
+       
+    </p>
+    <h2>Landscape</h2>
+    <div id="landscape" class="grid"></div>
 
-        <div class="grid">
-            <!-- Images dok001.jpg to dok033.jpg -->
-            <img src="dok001.jpg" alt="Photo 1">
-            <img src="dok002.jpg" alt="Photo 2">
-            <img src="dok003.jpg" alt="Photo 3">
-            <img src="dok004.jpg" alt="Photo 4">
-            <img src="dok005.jpg" alt="Photo 5">
-            <img src="dok006.jpg" alt="Photo 6">
-            <img src="dok007.jpg" alt="Photo 7">
-            <img src="dok008.jpg" alt="Photo 8">
-            <img src="dok009.jpg" alt="Photo 9">
-            <img src="dok010.jpg" alt="Photo 10">
-            <img src="dok011.jpg" alt="Photo 11">
-            <img src="dok012.jpg" alt="Photo 12">
-            <img src="dok013.jpg" alt="Photo 13">
-            <img src="dok014.jpg" alt="Photo 14">
-            <img src="dok015.jpg" alt="Photo 15">
-            <img src="dok016.jpg" alt="Photo 16">
-            <img src="dok017.jpg" alt="Photo 17">
-            <img src="dok018.jpg" alt="Photo 18">
-            <img src="dok019.jpg" alt="Photo 19">
-            <img src="dok020.jpg" alt="Photo 20">
-            <img src="dok021.jpg" alt="Photo 21">
-            <img src="dok022.jpg" alt="Photo 22">
-            <img src="dok023.jpg" alt="Photo 23">
-            <img src="dok024.jpg" alt="Photo 24">
-            <img src="dok025.jpg" alt="Photo 25">
-            <img src="dok026.jpg" alt="Photo 26">
-            <img src="dok027.jpg" alt="Photo 27">
-            <img src="dok028.jpg" alt="Photo 28">
-            <img src="dok029.jpg" alt="Photo 29">
-            <img src="dok030.jpg" alt="Photo 30">
-            <img src="dok031.jpg" alt="Photo 31">
-            <img src="dok032.jpg" alt="Photo 32">
-            <img src="dok033.jpg" alt="Photo 33">
-        </div>
-    </div>
+    <h2>Portrait</h2>
+    <div id="portrait" class="grid"></div>
 
-    <div id="lightbox">
-        <img id="lightbox-img" src="" alt="Expanded view">
-    </div>
+    <p style="text-align:center; margin-top:40px;">
+        <a href="index.html" style="color:#6cf; text-decoration:none;">← Back to all films</a>
+    </p>
+</div>
 
-    <script>
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+    <img id="lightbox-img">
+</div>
 
-        document.querySelectorAll('.grid img').forEach(img => {
-            img.addEventListener('click', () => {
-                lightboxImg.src = img.src;
-                lightbox.style.display = 'flex';
+<script>
+    // Your filenames
+    const files = [
+        "dok001.jpg", "dok002.jpg", "dok003.jpg", "dok004.jpg", "dok005.jpg",
+        "dok006.jpg", "dok007.jpg", "dok008.jpg", "dok009.jpg", "dok010.jpg",
+        "dok011.jpg", "dok012.jpg", "dok013.jpg", "dok014.jpg", "dok015.jpg",
+        "dok016.jpg", "dok017.jpg", "dok018.jpg", "dok019.jpg", "dok020.jpg",
+        "dok021.jpg", "dok022.jpg", "dok023.jpg", "dok024.jpg", "dok025.jpg",
+        "dok026.jpg", "dok027.jpg", "dok028.jpg", "dok029.jpg", "dok030.jpg",
+        "dok031.jpg", "dok032.jpg", "dok033.jpg"
+    ];
+
+    const landscape = document.getElementById("landscape");
+    const portrait = document.getElementById("portrait");
+
+    // Categorize images by aspect ratio
+    files.forEach(f => {
+        const img = new Image();
+        img.src = "photos/premier-foma200/" + f;
+
+        img.onload = () => {
+            const wrapper = document.createElement("div");
+            const clone = img.cloneNode();
+            wrapper.appendChild(clone);
+
+            if (img.width > img.height) {
+                landscape.appendChild(wrapper);
+            } else {
+                portrait.appendChild(wrapper);
+            }
+
+            // Lightbox click handler
+            clone.addEventListener("click", () => {
+                document.getElementById("lightbox-img").src = img.src;
+                document.getElementById("lightbox").style.display = "flex";
             });
-        });
+        };
+    });
 
-        lightbox.addEventListener('click', () => {
-            lightbox.style.display = 'none';
-        });
-    </script>
+    // Close lightbox
+    document.getElementById("lightbox").addEventListener("click", () => {
+        document.getElementById("lightbox").style.display = "none";
+    });
+</script>
+
 </body>
 </html>
+
+
+so now, what if i want a bit of text at the top that explains a bit about th ecamera, the film, the dev i used, etc - just a little description
