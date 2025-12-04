@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Photo Gallery</title>
+    <style>
+        body { margin: 0; background: #111; color: white; font-family: sans-serif; }
+        h1 { text-align: center; padding: 20px 0; margin: 0; font-weight: 400; }
+        .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; padding: 10px; }
+        .gallery img { width: 100%; height: 100%; object-fit: cover; cursor: pointer; border-radius: 6px; transition: opacity 0.2s; }
+        .gallery img:hover { opacity: 0.8; }
+        #lightbox { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9);
+                    display: flex; align-items: center; justify-content: center; visibility: hidden; opacity: 0; transition: opacity 0.2s; }
+        #lightbox.visible { visibility: visible; opacity: 1; }
+        #lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 6px; }
+    </style>
+</head>
+<body>
+
+<h1>My Photos</h1>
+
+<div class="gallery" id="gallery"></div>
+
+<div id="lightbox">
+    <img id="lightbox-img" src="" />
+</div>
+
+<script>
+    const imageList = [
+        // Add your filenames here, like:
+        // "myphoto1.jpg",
+        // "cat.png"
+    ];
+
+    const gallery = document.getElementById('gallery');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    imageList.forEach(filename => {
+        const img = document.createElement('img');
+        img.src = 'photos/' + filename;
+        img.alt = filename;
+
+        img.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            lightbox.classList.add('visible');
+        });
+
+        gallery.appendChild(img);
+    });
+
+    lightbox.addEventListener('click', () => {
+        lightbox.classList.remove('visible');
+        lightboxImg.src = '';
+    });
+</script>
+
+</body>
+</html>
