@@ -72,6 +72,24 @@ img:hover {
     border-radius: 6px;
 }
 
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 50px;
+    color: rgba(255,255,255,0.8);
+    cursor: pointer;
+    user-select: none;
+    padding: 10px;
+    transition: 0.2s;
+}
+
+.arrow:hover {
+    color: white;
+}
+
+#lightbox-left { left: 20px; }
+#lightbox-right { right: 20px; }
 
     }
 </style>
@@ -98,8 +116,11 @@ img:hover {
 
 <!-- Lightbox -->
 <div id="lightbox" class="lightbox">
+    <span id="lightbox-left" class="arrow">&#10094;</span>
     <img id="lightbox-img">
+    <span id="lightbox-right" class="arrow">&#10095;</span>
 </div>
+
 
 <script>
     // Your filenames
@@ -144,6 +165,54 @@ img:hover {
     document.getElementById("lightbox").addEventListener("click", () => {
         document.getElementById("lightbox").style.display = "none";
     });
+
+   // Flatten all images into a single array for slideshow
+const allImages = files.map(f => "photos/premier-foma200/" + f);
+let currentIndex = 0;
+
+function showImage(index) {
+    currentIndex = index;
+    lightboxImg.src = allImages[currentIndex];
+    lightbox.style.display = "flex";
+}
+
+// Update the click handlers to set currentIndex
+document.querySelectorAll('.grid img').forEach((img, i) => {
+    img.addEventListener('click', () => {
+        showImage(i);
+    });
+});
+
+// Arrow click handlers
+document.getElementById('lightbox-left').addEventListener('click', e => {
+    e.stopPropagation();
+    currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+    lightboxImg.src = allImages[currentIndex];
+});
+
+document.getElementById('lightbox-right').addEventListener('click', e => {
+    e.stopPropagation();
+    currentIndex = (currentIndex + 1) % allImages.length;
+    lightboxImg.src = allImages[currentIndex];
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+    if (lightbox.style.display === "flex") {
+        if (e.key === "ArrowLeft") {
+            currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+            lightboxImg.src = allImages[currentIndex];
+        }
+        if (e.key === "ArrowRight") {
+            currentIndex = (currentIndex + 1) % allImages.length;
+            lightboxImg.src = allImages[currentIndex];
+        }
+        if (e.key === "Escape") {
+            lightbox.style.display = "none";
+        }
+    }
+});
+
 </script>
 
 </body>
