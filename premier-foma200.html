@@ -1,103 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Premier – Foma 200</title>
-
 <style>
+/* Page */
 body {
-    margin: 20px;
-    background: #f5f5f5;
-    color: #111;
-    font-family: sans-serif;
+  margin: 20px;
+  background: #f5f5f5;
+  color: #111;
+  font-family: sans-serif;
 }
-
 .container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
 }
-
 .back-link {
-    display: inline-block;
-    margin-bottom: 20px;
-    text-decoration: none;
-    color: #444;
-    font-size: 0.95em;
+  display: inline-block;
+  margin-bottom: 12px;
+  text-decoration: none;
+  color: #444;
+  font-size: 0.95em;
 }
-.back-link:hover {
-    color: #000;
-}
+.back-link:hover { color: #000; }
+
+/* Headings & description */
+h1 { margin: 8px 0 12px 0; font-weight: 500; }
+.description { color: #333; margin-bottom: 18px; line-height: 1.5; }
 
 /* Grid */
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
 }
-
+.grid .thumb {
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+}
 .grid img {
-    width: 100%;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.2s;
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  transition: opacity .15s ease, transform .15s ease;
 }
-.grid img:hover {
-    opacity: 0.9;
-}
+.grid img:hover { opacity: 0.95; transform: translateY(-2px); }
 
 /* Lightbox */
 .lightbox {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  z-index: 9999;
 }
-
+.lightbox-inner {
+  max-width: 96vw;
+  max-height: 96vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
 .lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 6px;
-    object-fit: contain;
+  max-width: 90vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
 }
 
-/* Arrows */
+/* arrows */
 .arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 50px;
-    color: rgba(255,255,255,0.8);
-    cursor: pointer;
-    user-select: none;
-    padding: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 46px;
+  color: rgba(255,255,255,0.9);
+  cursor: pointer;
+  user-select: none;
+  padding: 8px 12px;
+  background: transparent;
+  border-radius: 6px;
 }
-.arrow:hover {
-    color: white;
-}
+.arrow:hover { color: white; background: rgba(255,255,255,0.04); }
+#lightbox-left { left: 18px; }
+#lightbox-right { right: 18px; }
 
-#lightbox-left { left: 20px; }
-#lightbox-right { right: 20px; }
-
-/* Download button */
-.download-btn {
-    text-align: center;
-    margin-top: 15px;
-}
+/* download button — visible on dark bg */
 .download-btn a {
-    color: white;
-    background: rgba(255,255,255,0.2);
-    padding: 8px 14px;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: 0.2s;
+  display: inline-block;
+  background: rgba(0,0,0,0.65);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.95em;
 }
-.download-btn a:hover {
-    background: rgba(255,255,255,0.35);
+.download-btn a:hover { background: rgba(0,0,0,0.8); }
+
+/* small responsive tweak */
+@media (max-width: 520px) {
+  .arrow { font-size: 36px; left: 8px; right: 8px; }
+  .lightbox img { max-height: 72vh; }
 }
 </style>
 </head>
@@ -105,127 +120,194 @@ body {
 
 <div class="container">
 
+  <!-- top back link -->
+  <a class="back-link" href="index.html">← Back to all films</a>
+
+  <h1>Premier – Foma 200</h1>
+
+  <p class="description">
+    Shot on a <strong>Premier PC-645</strong> using <strong>Foma 200</strong>. Developed in <strong>Rodinal 1:25</strong>.
+  </p>
+
+  <h2>Landscape</h2>
+  <div id="landscape" class="grid" aria-live="polite"></div>
+
+  <h2>Portrait</h2>
+  <div id="portrait" class="grid" aria-live="polite"></div>
+
+  <p style="text-align:center; margin-top:34px;">
     <a class="back-link" href="index.html">← Back to all films</a>
-
-    <h1>Premier – Foma 200</h1>
-
-    <p>
-        Shot on a <strong>Premier PC-645</strong> using <strong>Foma 200</strong>.  
-        Developed in <strong>Rodinal 1:25</strong>.
-    </p>
-
-    <h2>Landscape</h2>
-    <div id="landscape" class="grid"></div>
-
-    <h2>Portrait</h2>
-    <div id="portrait" class="grid"></div>
-
-    <p style="text-align:center; margin-top:40px;">
-        <a class="back-link" href="index.html">← Back to all films</a>
-    </p>
+  </p>
 
 </div>
 
 <!-- LIGHTBOX -->
-<div id="lightbox" class="lightbox">
-    <span id="lightbox-left" class="arrow">&#10094;</span>
-    <div>
-        <img id="lightbox-img">
-        <div class="download-btn">
-            <a id="download-link" target="_blank">Download full size</a>
-        </div>
+<div id="lightbox" class="lightbox" role="dialog" aria-hidden="true">
+  <span id="lightbox-left" class="arrow" aria-hidden="true">&#10094;</span>
+
+  <div class="lightbox-inner" id="lightbox-inner">
+    <img id="lightbox-img" alt="">
+    <div class="download-btn">
+      <a id="download-link" target="_blank" rel="noopener noreferrer">Download full size</a>
     </div>
-    <span id="lightbox-right" class="arrow">&#10095;</span>
+  </div>
+
+  <span id="lightbox-right" class="arrow" aria-hidden="true">&#10095;</span>
 </div>
 
 <script>
+/*
+  Folder structure REQUIRED:
+  photos/premier-foma200/thumbs/dok001.jpg  (small ~50kb)
+  photos/premier-foma200/medium/dok001.jpg  (lightbox ~200kb)
+  photos/premier-foma200/full/dok001.jpg    (original download)
+
+  Filenames must match across folders.
+*/
+
 const files = [
-    "dok001.jpg","dok002.jpg","dok003.jpg","dok004.jpg","dok005.jpg",
-    "dok006.jpg","dok007.jpg","dok008.jpg","dok009.jpg","dok010.jpg",
-    "dok011.jpg","dok012.jpg","dok013.jpg","dok014.jpg","dok015.jpg",
-    "dok016.jpg","dok017.jpg","dok018.jpg","dok019.jpg","dok020.jpg",
-    "dok021.jpg","dok022.jpg","dok023.jpg","dok024.jpg","dok025.jpg",
-    "dok026.jpg","dok027.jpg","dok028.jpg","dok029.jpg","dok030.jpg",
-    "dok031.jpg","dok032.jpg","dok033.jpg"
+  "dok001.jpg","dok002.jpg","dok003.jpg","dok004.jpg","dok005.jpg",
+  "dok006.jpg","dok007.jpg","dok008.jpg","dok009.jpg","dok010.jpg",
+  "dok011.jpg","dok012.jpg","dok013.jpg","dok014.jpg","dok015.jpg",
+  "dok016.jpg","dok017.jpg","dok018.jpg","dok019.jpg","dok020.jpg",
+  "dok021.jpg","dok022.jpg","dok023.jpg","dok024.jpg","dok025.jpg",
+  "dok026.jpg","dok027.jpg","dok028.jpg","dok029.jpg","dok030.jpg",
+  "dok031.jpg","dok032.jpg","dok033.jpg"
 ];
 
-const landscape = document.getElementById("landscape");
-const portrait = document.getElementById("portrait");
+const landscape = document.getElementById('landscape');
+const portrait = document.getElementById('portrait');
 
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
-const downloadLink = document.getElementById("download-link");
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const downloadLink = document.getElementById('download-link');
+const leftArrow = document.getElementById('lightbox-left');
+const rightArrow = document.getElementById('lightbox-right');
 
-let currentIndex = 0;
+let items = []; // will hold {thumb, medium, full, width, height}
+let currentIndex = -1;
 
-const allImages = [];
-
-// Load thumbnails + categorize by aspect ratio
-files.forEach((f, i) => {
-    const img = new Image();
-    img.src = "photos/premier-foma200/thumbs/" + f;
-
-    img.onload = () => {
-        const wrap = document.createElement("div");
-        const clone = img.cloneNode();
-        wrap.appendChild(clone);
-
-        const fullPath = "photos/premier-foma200/medium/" + f;
-        const fullDownload = "photos/premier-foma200/full/" + f;
-
-        allImages.push({ medium: fullPath, full: fullDownload });
-
-        if (img.width > img.height) {
-            landscape.appendChild(wrap);
-        } else {
-            portrait.appendChild(wrap);
-        }
-
-        clone.addEventListener("click", () => {
-            currentIndex = i;
-            showImage();
-        });
-    };
-});
-
-function showImage() {
-    const { medium, full } = allImages[currentIndex];
-    lightboxImg.src = medium;
-    downloadLink.href = full;
-    lightbox.style.display = "flex";
+// Helper to create a thumb element once loaded
+function createThumbElement(file, idx, loadedImg) {
+  const wrap = document.createElement('div');
+  wrap.className = 'thumb';
+  // use the cloned element (already loaded image) for correct aspect ratio
+  const imgEl = loadedImg.cloneNode();
+  imgEl.alt = `Premier Foma200 - ${file.replace('.jpg','')}`;
+  wrap.appendChild(imgEl);
+  // store the index as data attribute (not relied on for order)
+  imgEl.dataset.idx = idx;
+  // click opens lightbox with that exact idx
+  imgEl.addEventListener('click', () => {
+    openLightbox(idx);
+  });
+  return wrap;
 }
 
-// Close when clicking background
-lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) lightbox.style.display = "none";
+// Load all thumbnails (and read natural sizes from medium images when possible)
+files.forEach((filename, i) => {
+  const thumbSrc = `photos/premier-foma200/thumbs/${filename}`;
+  const mediumSrc = `photos/premier-foma200/medium/${filename}`;
+  const fullSrc = `photos/premier-foma200/full/${filename}`;
+
+  // Create an Image to load thumbnail
+  const thumbImg = new Image();
+  thumbImg.src = thumbSrc;
+  thumbImg.onload = () => {
+    // We want the aspect ratio; sometimes thumb is cropped — so try to load medium to get real aspect if possible
+    const sizeProbe = new Image();
+    sizeProbe.src = mediumSrc;
+    sizeProbe.onload = () => {
+      items[i] = { thumb: thumbSrc, medium: mediumSrc, full: fullSrc, w: sizeProbe.naturalWidth, h: sizeProbe.naturalHeight };
+      const elem = createThumbElement(filename, i, thumbImg);
+      if (sizeProbe.naturalWidth > sizeProbe.naturalHeight) landscape.appendChild(elem);
+      else portrait.appendChild(elem);
+    };
+    sizeProbe.onerror = () => {
+      // fallback: use thumb dimensions if medium not available
+      items[i] = { thumb: thumbSrc, medium: mediumSrc, full: fullSrc, w: thumbImg.naturalWidth, h: thumbImg.naturalHeight };
+      const elem = createThumbElement(filename, i, thumbImg);
+      if (thumbImg.naturalWidth > thumbImg.naturalHeight) landscape.appendChild(elem);
+      else portrait.appendChild(elem);
+    };
+  };
+  thumbImg.onerror = () => {
+    // skip broken thumbs but keep slot so indexes align
+    items[i] = { thumb: thumbSrc, medium: mediumSrc, full: fullSrc, w: 1, h: 1 };
+    const placeholder = document.createElement('div');
+    placeholder.className = 'thumb';
+    placeholder.textContent = filename + ' (missing)';
+    if (1 > 1) landscape.appendChild(placeholder); else portrait.appendChild(placeholder);
+  };
 });
 
-// Arrows
-document.getElementById("lightbox-left").onclick = (e) => {
-    e.stopPropagation();
-    currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
-    showImage();
-};
-document.getElementById("lightbox-right").onclick = (e) => {
-    e.stopPropagation();
-    currentIndex = (currentIndex + 1) % allImages.length;
-    showImage();
-};
+// Open lightbox at index
+function openLightbox(idx) {
+  if (!items[idx]) return;
+  currentIndex = idx;
+  updateLightbox();
+  // show
+  lightbox.style.display = 'flex';
+  lightbox.setAttribute('aria-hidden','false');
+  // focus it so keyboard events are caught immediately
+  lightbox.tabIndex = -1;
+  lightbox.focus({preventScroll:true});
+}
 
-// Keyboard
-document.addEventListener("keydown", (e) => {
-    if (lightbox.style.display !== "flex") return;
-    if (e.key === "ArrowLeft") {
-        currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
-        showImage();
-    }
-    if (e.key === "ArrowRight") {
-        currentIndex = (currentIndex + 1) % allImages.length;
-        showImage();
-    }
-    if (e.key === "Escape") lightbox.style.display = "none";
+// Update lightbox image and download link
+function updateLightbox() {
+  if (currentIndex < 0 || !items[currentIndex]) return;
+  const it = items[currentIndex];
+  // set src of medium image for lightbox
+  lightboxImg.src = it.medium;
+  lightboxImg.alt = `Premier Foma200 — ${currentIndex + 1}`;
+  downloadLink.href = it.full;
+  downloadLink.textContent = 'Download full size';
+  // ensure arrows are visible/hidden if very small set
+  // (they are always visible here, but could be hidden if you prefer)
+}
+
+// Close lightbox
+function closeLightbox() {
+  lightbox.style.display = 'none';
+  lightbox.setAttribute('aria-hidden','true');
+  lightboxImg.src = '';
+  currentIndex = -1;
+}
+
+// click background to close (but not if clicking inner content)
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) closeLightbox();
+});
+
+// arrow clicks
+leftArrow.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (items.length === 0) return;
+  currentIndex = (currentIndex - 1 + items.length) % items.length;
+  updateLightbox();
+});
+rightArrow.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (items.length === 0) return;
+  currentIndex = (currentIndex + 1) % items.length;
+  updateLightbox();
+});
+
+// keyboard navigation — use window listener and ensure lightbox is open
+window.addEventListener('keydown', (e) => {
+  if (lightbox.style.display !== 'flex') return;
+  // left / right / esc
+  if (e.key === 'ArrowLeft') {
+    currentIndex = (currentIndex - 1 + items.length) % items.length;
+    updateLightbox();
+  } else if (e.key === 'ArrowRight') {
+    currentIndex = (currentIndex + 1) % items.length;
+    updateLightbox();
+  } else if (e.key === 'Escape') {
+    closeLightbox();
+  }
 });
 </script>
-
 </body>
 </html>
