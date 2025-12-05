@@ -47,6 +47,7 @@ body {
     opacity: 0.9;
 }
 
+
 /* Lightbox */
 .lightbox {
     position: fixed;
@@ -59,11 +60,14 @@ body {
 }
 
 .lightbox img {
-    max-width: 90%;
-    max-height: 90%;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
     border-radius: 6px;
     object-fit: contain;
 }
+
 
 /* Arrows */
 .arrow {
@@ -157,7 +161,7 @@ const downloadLink = document.getElementById("download-link");
 let currentIndex = 0;
 const allImages = [];
 
-// Load thumbnails + categorize
+// Load thumbnails + categorize, CHANGE THE NAMES HERE OF THE FOLDERS IN THE INDEXED PHOTOS FOLDER
 files.forEach((f, i) => {
     const thumb = new Image();
     thumb.src = "photos/fuji-foma2001/thumbs/" + f;
