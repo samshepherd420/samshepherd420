@@ -6,7 +6,7 @@
 <title>Premier – Foma 200</title>
 
 <style>
-   body {
+body {
     margin: 20px;
     background: #f5f5f5;
     color: #111;
@@ -19,36 +19,31 @@
     padding: 20px;
 }
 
-/* Links on index.html */
-a {
-    display: block;
-    padding: 12px 15px;
-    margin: 10px 0;
-    background: #e4e4e4;
-    color: #111;
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
     text-decoration: none;
-    border-radius: 6px;
-    transition: 0.2s;
+    color: #444;
+    font-size: 0.95em;
 }
-a:hover {
-    background: #d8d8d8;
+.back-link:hover {
+    color: #000;
 }
 
-/* Image grid */
+/* Grid */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 15px;
 }
 
-img {
+.grid img {
     width: 100%;
-    height: auto;
     border-radius: 6px;
     cursor: pointer;
     transition: 0.2s;
 }
-img:hover {
+.grid img:hover {
     opacity: 0.9;
 }
 
@@ -60,18 +55,17 @@ img:hover {
     display: none;
     justify-content: center;
     align-items: center;
-    padding: 20px; /* small margin so big photos don't touch edges */
+    padding: 20px;
 }
 
 .lightbox img {
     max-width: 90%;
     max-height: 90%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
     border-radius: 6px;
+    object-fit: contain;
 }
 
+/* Arrows */
 .arrow {
     position: absolute;
     top: 50%;
@@ -81,9 +75,7 @@ img:hover {
     cursor: pointer;
     user-select: none;
     padding: 10px;
-    transition: 0.2s;
 }
-
 .arrow:hover {
     color: white;
 }
@@ -91,18 +83,37 @@ img:hover {
 #lightbox-left { left: 20px; }
 #lightbox-right { right: 20px; }
 
-    }
+/* Download button */
+.download-btn {
+    text-align: center;
+    margin-top: 15px;
+}
+.download-btn a {
+    color: white;
+    background: rgba(255,255,255,0.2);
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+.download-btn a:hover {
+    background: rgba(255,255,255,0.35);
+}
 </style>
 </head>
 <body>
 
-<h1>Premier – Foma 200</h1>
 <div class="container">
-<p class="description">
-        Shot on a <strong>Premier PC-645</strong> with <strong>Foma 200</strong> film.  
+
+    <a class="back-link" href="index.html">← Back to all films</a>
+
+    <h1>Premier – Foma 200</h1>
+
+    <p>
+        Shot on a <strong>Premier PC-645</strong> using <strong>Foma 200</strong>.  
         Developed in <strong>Rodinal 1:25</strong>.
-       
     </p>
+
     <h2>Landscape</h2>
     <div id="landscape" class="grid"></div>
 
@@ -110,21 +121,25 @@ img:hover {
     <div id="portrait" class="grid"></div>
 
     <p style="text-align:center; margin-top:40px;">
-        <a href="index.html" style="color:#6cf; text-decoration:none;">← Back to all films</a>
+        <a class="back-link" href="index.html">← Back to all films</a>
     </p>
+
 </div>
 
-<!-- Lightbox -->
+<!-- LIGHTBOX -->
 <div id="lightbox" class="lightbox">
     <span id="lightbox-left" class="arrow">&#10094;</span>
-    <img id="lightbox-img">
+    <div>
+        <img id="lightbox-img">
+        <div class="download-btn">
+            <a id="download-link" target="_blank">Download full size</a>
+        </div>
+    </div>
     <span id="lightbox-right" class="arrow">&#10095;</span>
 </div>
 
-
 <script>
-    // Your filenames
-    const files = [
+const files = [
     "dok001.jpg","dok002.jpg","dok003.jpg","dok004.jpg","dok005.jpg",
     "dok006.jpg","dok007.jpg","dok008.jpg","dok009.jpg","dok010.jpg",
     "dok011.jpg","dok012.jpg","dok013.jpg","dok014.jpg","dok015.jpg",
@@ -136,80 +151,81 @@ img:hover {
 
 const landscape = document.getElementById("landscape");
 const portrait = document.getElementById("portrait");
+
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
-const allImages = []; // will store all loaded images
+const downloadLink = document.getElementById("download-link");
+
 let currentIndex = 0;
 
-// Load images and categorize
+const allImages = [];
+
+// Load thumbnails + categorize by aspect ratio
 files.forEach((f, i) => {
     const img = new Image();
-    img.src = "photos/premier-foma200/" + f;
+    img.src = "photos/premier-foma200/thumbs/" + f;
 
     img.onload = () => {
-        const wrapper = document.createElement("div");
+        const wrap = document.createElement("div");
         const clone = img.cloneNode();
-        wrapper.appendChild(clone);
+        wrap.appendChild(clone);
 
-        // Add to landscape or portrait
+        const fullPath = "photos/premier-foma200/medium/" + f;
+        const fullDownload = "photos/premier-foma200/full/" + f;
+
+        allImages.push({ medium: fullPath, full: fullDownload });
+
         if (img.width > img.height) {
-            landscape.appendChild(wrapper);
+            landscape.appendChild(wrap);
         } else {
-            portrait.appendChild(wrapper);
+            portrait.appendChild(wrap);
         }
 
-        // Add to global array for slideshow
-        allImages.push(img.src);
-
-        // Click handler to open lightbox
         clone.addEventListener("click", () => {
-            currentIndex = allImages.indexOf(img.src);
-            lightboxImg.src = img.src;
-            lightbox.style.display = "flex";
+            currentIndex = i;
+            showImage();
         });
     };
 });
 
-// Close lightbox on click outside arrows
-lightbox.addEventListener("click", e => {
-    if (e.target === lightbox) {
-        lightbox.style.display = "none";
-    }
+function showImage() {
+    const { medium, full } = allImages[currentIndex];
+    lightboxImg.src = medium;
+    downloadLink.href = full;
+    lightbox.style.display = "flex";
+}
+
+// Close when clicking background
+lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) lightbox.style.display = "none";
 });
 
-// Arrow handlers
-document.getElementById('lightbox-left').addEventListener('click', e => {
+// Arrows
+document.getElementById("lightbox-left").onclick = (e) => {
     e.stopPropagation();
     currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
-    lightboxImg.src = allImages[currentIndex];
-});
-
-document.getElementById('lightbox-right').addEventListener('click', e => {
+    showImage();
+};
+document.getElementById("lightbox-right").onclick = (e) => {
     e.stopPropagation();
     currentIndex = (currentIndex + 1) % allImages.length;
-    lightboxImg.src = allImages[currentIndex];
-});
+    showImage();
+};
 
-// Keyboard navigation
-document.addEventListener('keydown', e => {
-    if (lightbox.style.display === "flex") {
-        if (e.key === "ArrowLeft") {
-            currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
-            lightboxImg.src = allImages[currentIndex];
-        }
-        if (e.key === "ArrowRight") {
-            currentIndex = (currentIndex + 1) % allImages.length;
-            lightboxImg.src = allImages[currentIndex];
-        }
-        if (e.key === "Escape") {
-            lightbox.style.display = "none";
-        }
+// Keyboard
+document.addEventListener("keydown", (e) => {
+    if (lightbox.style.display !== "flex") return;
+    if (e.key === "ArrowLeft") {
+        currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+        showImage();
     }
+    if (e.key === "ArrowRight") {
+        currentIndex = (currentIndex + 1) % allImages.length;
+        showImage();
+    }
+    if (e.key === "Escape") lightbox.style.display = "none";
 });
-
 </script>
 
 </body>
 </html>
-
-
