@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fuji – Foma 200 (1)</title>
+<title>Fuji – Foma 200 1 Stop</title>
 
 <style>
 body {
@@ -107,7 +107,7 @@ body {
 
     <a class="back-link" href="index.html">← Back to all films</a>
 
-    <h1>Fuji – Foma 200 (1)</h1>
+    <h1>Fuji – Foma 200 - 1 Stop</h1>
 
     <p>
         Shot on a <strong>Fujica</strong> with <strong>Foma 200</strong> film.<br>
@@ -160,14 +160,14 @@ const allImages = [];
 // Load thumbnails + categorize
 files.forEach((f, i) => {
     const thumb = new Image();
-    thumb.src = "photos/fujo-foma2001/thumbs/" + f;
+    thumb.src = "photos/fuji-foma2001/thumbs/" + f;
 
     thumb.onload = () => {
         const wrap = document.createElement("div");
         wrap.appendChild(thumb);
 
-        const mediumPath = "photos/fujo-foma2001/medium/" + f;
-        const fullPath = "photos/fujo-foma2001/full/" + f;
+        const mediumPath = "photos/fuji-foma2001/medium/" + f;
+        const fullPath = "photos/fuji-foma2001/full/" + f;
 
         allImages.push({ medium: mediumPath, full: fullPath });
 
