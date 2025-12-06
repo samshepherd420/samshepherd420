@@ -1,1 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fuji – Foma 200 1 Stop</title>
 
+<style>
+body {
+    margin: 20px;
+    background: #f5f5f5;
+    color: #111;
+    font-family: sans-serif;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #444;
+    font-size: 0.95em;
+}
+.back-link:hover {
+    color: #000;
+}
+
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+.grid img {
+    width: 100%;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.grid img:hover {
+    opacity: 0.9;
+}
+
+
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    border-radius: 6px;
+    object-fit: contain;
+}
+
+
+/* Arrows */
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 50px;
+    color: rgba(255,255,255,0.8);
+    cursor: pointer;
+    user-select: none;
+    padding: 10px;
+}
+.arrow:hover {
+    color: white;
+}
+
+#lightbox-left { left: 20px; }
+#lightbox-right { right: 20px; }
+
+/* Download button */
+.download-btn {
+    text-align: center;
+    margin-top: 15px;
+}
+.download-btn a {
+    color: white;
+    background: rgba(255,255,255,0.2);
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+.download-btn a:hover {
+    background: rgba(255,255,255,0.35);
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <a class="back-link" href="index.html">← Back to all films</a>
+
+    <h1>Fuji – Foma 200 - 1 Stop</h1>
+
+    <p>
+        Shot on a <strong>Fujica</strong> with <strong>Foma 200</strong> film.<br>
+        Developed in <strong>Rodinal 1:25</strong>.
+    </p>
+
+    <h2>Landscape</h2>
+    <div id="landscape" class="grid"></div>
+
+    <h2>Portrait</h2>
+    <div id="portrait" class="grid"></div>
+
+    <p style="text-align:center; margin-top:40px;">
+        <a class="back-link" href="index.html">← Back to all films</a>
+    </p>
+
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox">
+    <span id="lightbox-left" class="arrow">&#10094;</span>
+    <div>
+        <img id="lightbox-img">
+        <div class="download-btn">
+            <a id="download-link" target="_blank">Download full size</a>
+        </div>
+    </div>
+    <span id="lightbox-right" class="arrow">&#10095;</span>
+</div>
+
+<script>
+// Filenames (missing: 3, 10, 12, 15, 20, 30)
+const files = [
+    "doka1.jpg","doka2.jpg","doka4.jpg","doka5.jpg","doka6.jpg","doka7.jpg","doka8.jpg","doka9.jpg",
+    "doka11.jpg","doka13.jpg","doka14.jpg","doka16.jpg","doka17.jpg","doka18.jpg","doka19.jpg",
+    "doka21.jpg","doka22.jpg","doka23.jpg","doka24.jpg","doka25.jpg","doka26.jpg","doka27.jpg",
+    "doka28.jpg","doka29.jpg","doka31.jpg","doka32.jpg","doka33.jpg"
+];
+
+const landscape = document.getElementById("landscape");
+const portrait = document.getElementById("portrait");
+
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const downloadLink = document.getElementById("download-link");
+
+let currentIndex = 0;
+const allImages = [];
+
+// Load thumbnails + categorize, CHANGE THE NAMES HERE OF THE FOLDERS IN THE INDEXED PHOTOS FOLDER
+files.forEach((f, i) => {
+    const thumb = new Image();
+    thumb.src = "photos/fuji-ilfordhp5/thumbs/" + f;
+
+    thumb.onload = () => {
+        const wrap = document.createElement("div");
+        wrap.appendChild(thumb);
+
+        const mediumPath = "photos/fuji-ilfordhp5/medium/" + f;
+        const fullPath = "photos/fuji-ilfordhp5/full/" + f;
+
+        allImages.push({ medium: mediumPath, full: fullPath });
+
+        if (thumb.width > thumb.height) {
+            landscape.appendChild(wrap);
+        } else {
+            portrait.appendChild(wrap);
+        }
+
+        thumb.addEventListener("click", () => {
+            currentIndex = i;
+            showImage();
+        });
+    };
+});
+
+function showImage() {
+    const { medium, full } = allImages[currentIndex];
+    lightboxImg.src = medium;
+    downloadLink.href = full;
+    lightbox.style.display = "flex";
+}
+
+// BACKGROUND CLICK
+lightbox.addEventListener("click", e => {
+    if (e.target === lightbox) lightbox.style.display = "none";
+});
+
+// ARROWS
+document.getElementById("lightbox-left").onclick = e => {
+    e.stopPropagation();
+    currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+    showImage();
+};
+document.getElementById("lightbox-right").onclick = e => {
+    e.stopPropagation();
+    currentIndex = (currentIndex + 1) % allImages.length;
+    showImage();
+};
+
+// KEYBOARD
+document.addEventListener("keydown", e => {
+    if (lightbox.style.display !== "flex") return;
+
+    if (e.key === "ArrowLeft") {
+        currentIndex = (currentIndex - 1 + allImages.length) % allImages.length;
+        showImage();
+    }
+    if (e.key === "ArrowRight") {
+        currentIndex = (currentIndex + 1) % allImages.length;
+        showImage();
+    }
+    if (e.key === "Escape") lightbox.style.display = "none";
+});
+</script>
+
+</body>
+</html>
