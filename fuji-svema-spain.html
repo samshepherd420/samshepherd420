@@ -159,51 +159,43 @@ body {
 
 <script>
 // EXACT SAME SYSTEM AS YOUR ILFORD PAGE
-// --------------------------------------
-
-// Filenames r001-002.jpg → r001-033.jpg
-const files = [];
-for (let i = 2; i <= 33; i++) {
-    const n = String(i).padStart(3, '0');
-    files.push(`r001-${n}.jpg`);
-}
-
-// YOUR MANUAL CAPTIONS
-// ✏️ FILL THESE YOURSELF (kept empty exactly as you asked)
-const captions = {
-    "r001-002.jpg": "",
-    "r001-003.jpg": "",
-    "r001-004.jpg": "",
-    "r001-005.jpg": "",
-    "r001-006.jpg": "",
-    "r001-007.jpg": "",
-    "r001-008.jpg": "",
-    "r001-009.jpg": "",
-    "r001-010.jpg": "",
-    "r001-011.jpg": "",
-    "r001-012.jpg": "",
-    "r001-013.jpg": "",
-    "r001-014.jpg": "",
-    "r001-015.jpg": "",
-    "r001-016.jpg": "",
-    "r001-017.jpg": "",
-    "r001-018.jpg": "",
-    "r001-019.jpg": "",
-    "r001-020.jpg": "",
-    "r001-021.jpg": "",
-    "r001-022.jpg": "",
-    "r001-023.jpg": "",
-    "r001-024.jpg": "",
-    "r001-025.jpg": "",
-    "r001-026.jpg": "",
-    "r001-027.jpg": "",
-    "r001-028.jpg": "",
-    "r001-029.jpg": "",
-    "r001-030.jpg": "",
-    "r001-031.jpg": "",
-    "r001-032.jpg": "",
-    "r001-033.jpg": ""
-};
+// 
+const files = [
+  
+  { filename: "r001-002.jpg", caption: "Wishing upon a vape" },
+  { filename: "r001-003.jpg", caption: "Cartagenal" },
+  { filename: "r001-004.jpg", caption: "Is it working?" },
+  { filename: "r001-005.jpg", caption: "Above rhe doorway" },
+  { filename: "r001-006.jpg", caption: "Monument" },
+  { filename: "r001-007.jpg", caption: "Disgusting" },
+  { filename: "r001-008.jpg", caption: "Filth" },
+  { filename: "r001-009.jpg", caption: "That same face" },
+  { filename: "r001-010.jpg", caption: "Zero for the child" },
+  { filename: "r001-011.jpg", caption: "Hike part 1" },
+  { filename: "r001-012.jpg", caption: "The end of the trail" },
+  { filename: "r001-013.jpg", caption: "Warbles" },
+  { filename: "r001-014.jpg", caption: "Clouds over the military base" },
+  { filename: "r001-015.jpg", caption: "Self timer 1, let me hold the 7 week pregnant belly" },
+  { filename: "r001-016.jpg", caption: "Normal couple picture" },
+  { filename: "r001-017.jpg", caption: "Incline" },
+  { filename: "r001-018.jpg", caption: "Watermark" },
+  { filename: "r001-019.jpg", caption: "Probably could have removed this one" },
+  { filename: "r001-020.jpg", caption: "Abandoned entry point" },
+  { filename: "r001-021.jpg", caption: "Holy fuck i'm going to be sick" },
+  { filename: "r001-022.jpg", caption: "I never want to see this view again" },
+  { filename: "r001-023.jpg", caption: "The same can be said about this" },
+  { filename: "r001-024.jpg", caption: "One day was enough here" },
+  { filename: "r001-025.jpg", caption: "If this were colour, it would be orange" },
+  { filename: "r001-026.jpg", caption: "Upon another peak" },
+  { filename: "r001-027.jpg", caption: "I'm no expert but it looks like shale" },
+  { filename: "r001-028.jpg", caption: "Some shrub" },
+  { filename: "r001-029.jpg", caption: "Sand dune deposits" },
+  { filename: "r001-030.jpg", caption: "Obviously posed" },
+  { filename: "r001-031.jpg", caption: "And that's the beach" },
+  { filename: "r001-032.jpg", caption: "The towers of altamira (I recall when I was small)" },
+  { filename: "r001-033.jpg", caption: "NOT related to squid game" },
+  
+];
 
 const landscape = document.getElementById("landscape");
 const portrait = document.getElementById("portrait");
