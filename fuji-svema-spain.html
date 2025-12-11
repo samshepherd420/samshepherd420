@@ -158,10 +158,8 @@ body {
 </div>
 
 <script>
-// EXACT SAME SYSTEM AS YOUR ILFORD PAGE
-// 
+// Filenames + captions (your custom list)
 const files = [
-  
   { filename: "r001-002.jpg", caption: "Wishing upon a vape" },
   { filename: "r001-003.jpg", caption: "Cartagenal" },
   { filename: "r001-004.jpg", caption: "Is it working?" },
@@ -193,8 +191,7 @@ const files = [
   { filename: "r001-030.jpg", caption: "Obviously posed" },
   { filename: "r001-031.jpg", caption: "And that's the beach" },
   { filename: "r001-032.jpg", caption: "The towers of altamira (I recall when I was small)" },
-  { filename: "r001-033.jpg", caption: "NOT related to squid game" },
-  
+  { filename: "r001-033.jpg", caption: "NOT related to squid game" }
 ];
 
 const landscape = document.getElementById("landscape");
@@ -208,25 +205,24 @@ const downloadLink = document.getElementById("download-link");
 let currentIndex = 0;
 const allImages = [];
 
-// Load thumbnails + categorize
+// Load thumbnails
 files.forEach((f, i) => {
     const thumb = new Image();
-    thumb.src = "photos/fuji-svema-spain/thumbs/" + f;
+    thumb.src = "photos/fuji-svema-spain/thumbs/" + f.filename;
 
     thumb.onload = () => {
         const wrap = document.createElement("div");
-
         wrap.appendChild(thumb);
 
         const cap = document.createElement("div");
         cap.className = "caption";
-        cap.textContent = captions[f] || "";
+        cap.textContent = f.caption;
         wrap.appendChild(cap);
 
-        const mediumPath = "photos/fuji-svema-spain/medium/" + f;
-        const fullPath = "photos/fuji-svema-spain/full/" + f;
+        const mediumPath = "photos/fuji-svema-spain/medium/" + f.filename;
+        const fullPath = "photos/fuji-svema-spain/full/" + f.filename;
 
-        allImages.push({ medium: mediumPath, full: fullPath, file: f });
+        allImages.push({ medium: mediumPath, full: fullPath, caption: f.caption });
 
         if (thumb.width > thumb.height) {
             landscape.appendChild(wrap);
@@ -242,10 +238,10 @@ files.forEach((f, i) => {
 });
 
 function showImage() {
-    const { medium, full, file } = allImages[currentIndex];
+    const { medium, full, caption } = allImages[currentIndex];
     lightboxImg.src = medium;
     downloadLink.href = full;
-    lightboxCaption.textContent = captions[file] || "";
+    lightboxCaption.textContent = caption;
     lightbox.style.display = "flex";
 }
 
@@ -266,7 +262,7 @@ document.getElementById("lightbox-right").onclick = e => {
     showImage();
 };
 
-// Keyboard
+// Keyboard controls
 document.addEventListener("keydown", e => {
     if (lightbox.style.display !== "flex") return;
 
@@ -281,6 +277,7 @@ document.addEventListener("keydown", e => {
     if (e.key === "Escape") lightbox.style.display = "none";
 });
 </script>
+
 
 </body>
 </html>
