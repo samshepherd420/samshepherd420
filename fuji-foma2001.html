@@ -68,6 +68,13 @@ body {
     object-fit: contain;
 }
 
+/* Lightbox caption */
+#lightbox-caption {
+    text-align: center;
+    color: white;
+    margin-top: 10px;
+    font-size: 0.95em;
+}
 
 /* Arrows */
 .arrow {
@@ -135,6 +142,7 @@ body {
     <span id="lightbox-left" class="arrow">&#10094;</span>
     <div>
         <img id="lightbox-img">
+        <div id="lightbox-caption"></div>
         <div class="download-btn">
             <a id="download-link" target="_blank">Download full size</a>
         </div>
@@ -143,12 +151,34 @@ body {
 </div>
 
 <script>
-// Filenames (missing: 3, 10, 12, 15, 20, 30)
+// Filenames and captions (missing: 3, 10, 12, 15, 20, 30)
 const files = [
-    "doka1.jpg","doka2.jpg","doka4.jpg","doka5.jpg","doka6.jpg","doka7.jpg","doka8.jpg","doka9.jpg",
-    "doka11.jpg","doka13.jpg","doka14.jpg","doka16.jpg","doka17.jpg","doka18.jpg","doka19.jpg",
-    "doka21.jpg","doka22.jpg","doka23.jpg","doka24.jpg","doka25.jpg","doka26.jpg","doka27.jpg",
-    "doka28.jpg","doka29.jpg","doka31.jpg","doka32.jpg","doka33.jpg"
+    { filename:"doka1.jpg", caption:"Gedimino" },
+    { filename:"doka2.jpg", caption:"Bruce by the ice cream shop" },
+    { filename:"doka4.jpg", caption:"Friends with cheap fish" },
+    { filename:"doka5.jpg", caption:"Bell Tower of the Cathedral" },
+    { filename:"doka6.jpg", caption:"They were dancing but it doesn't look like it" },
+    { filename:"doka7.jpg", caption:"'Shanghai'" },
+    { filename:"doka8.jpg", caption:"Show off" },
+    { filename:"doka9.jpg", caption:"Some kind of party" },
+    { filename:"doka11.jpg", caption:"Wife" },
+    { filename:"doka13.jpg", caption:"Wife" },
+    { filename:"doka14.jpg", caption:"Wife and the alley by my work.." },
+    { filename:"doka16.jpg", caption:"I think my wife broke a car's plastic front here." },
+    { filename:"doka17.jpg", caption:"Gediminas' castle" },
+    { filename:"doka18.jpg", caption:"Wife and dog" },
+    { filename:"doka19.jpg", caption:"Wife and dog again" },
+    { filename:"doka21.jpg", caption:"Opera building" },
+    { filename:"doka22.jpg", caption:"Another show off" },
+    { filename:"doka23.jpg", caption:"Bit of the riverside" },
+    { filename:"doka24.jpg", caption:"White Bridge" },
+    { filename:"doka25.jpg", caption:"Wife" },
+    { filename:"doka26.jpg", caption:"Wife and dog" },
+    { filename:"doka27.jpg", caption:"The meaning of life" },
+    { filename:"doka28.jpg", caption:"A beaver we found who scared the pants off of us" },
+    { filename:"doka31.jpg", caption:"Teta guli" },
+    { filename:"doka32.jpg", caption:"New band" },
+    { filename:"doka33.jpg", caption:"Teta waiting for ice cream" }
 ];
 
 const landscape = document.getElementById("landscape");
@@ -157,23 +187,24 @@ const portrait = document.getElementById("portrait");
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 const downloadLink = document.getElementById("download-link");
+const lightboxCaption = document.getElementById("lightbox-caption");
 
 let currentIndex = 0;
 const allImages = [];
 
-// Load thumbnails + categorize, CHANGE THE NAMES HERE OF THE FOLDERS IN THE INDEXED PHOTOS FOLDER
+// Load thumbnails + categorize
 files.forEach((f, i) => {
     const thumb = new Image();
-    thumb.src = "photos/fuji-foma2001/thumbs/" + f;
+    thumb.src = "photos/fuji-foma2001/thumbs/" + f.filename;
 
     thumb.onload = () => {
         const wrap = document.createElement("div");
         wrap.appendChild(thumb);
 
-        const mediumPath = "photos/fuji-foma2001/medium/" + f;
-        const fullPath = "photos/fuji-foma2001/full/" + f;
+        const mediumPath = "photos/fuji-foma2001/medium/" + f.filename;
+        const fullPath = "photos/fuji-foma2001/full/" + f.filename;
 
-        allImages.push({ medium: mediumPath, full: fullPath });
+        allImages.push({ medium: mediumPath, full: fullPath, caption: f.caption });
 
         if (thumb.width > thumb.height) {
             landscape.appendChild(wrap);
@@ -189,9 +220,10 @@ files.forEach((f, i) => {
 });
 
 function showImage() {
-    const { medium, full } = allImages[currentIndex];
+    const { medium, full, caption } = allImages[currentIndex];
     lightboxImg.src = medium;
     downloadLink.href = full;
+    lightboxCaption.textContent = caption;
     lightbox.style.display = "flex";
 }
 
