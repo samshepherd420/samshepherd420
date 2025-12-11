@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fuji – Foma 200 1 Stop</title>
+<title>Fuji AX - Ilford HP5</title>
 
 <style>
 body {
@@ -68,6 +68,13 @@ body {
     object-fit: contain;
 }
 
+/* Lightbox caption */
+#lightbox-caption {
+    text-align: center;
+    color: white;
+    margin-top: 10px;
+    font-size: 0.95em;
+}
 
 /* Arrows */
 .arrow {
@@ -111,11 +118,10 @@ body {
 
     <a class="back-link" href="index.html">← Back to all films</a>
 
-    <h1>Fuji – Foma 200 - 1 Stop</h1>
+    <h1>Fuji AX - Ilford HP5</h1>
 
     <p>
-        Shot on a <strong>Fujica</strong> with <strong>Foma 200</strong> film.<br>
-        Developed in <strong>Rodinal 1:25</strong>.
+        Shot on a <strong>Fuji AX</strong> with <strong>Ilford HP5</strong> film.<br>
     </p>
 
     <h2>Landscape</h2>
@@ -135,6 +141,7 @@ body {
     <span id="lightbox-left" class="arrow">&#10094;</span>
     <div>
         <img id="lightbox-img">
+        <div id="lightbox-caption"></div>
         <div class="download-btn">
             <a id="download-link" target="_blank">Download full size</a>
         </div>
@@ -143,72 +150,72 @@ body {
 </div>
 
 <script>
-// Filenames (missing: 3, 10, 12, 15, 20, 30)
+// Filenames (unchanged)
 const files = [
-  "r001-001.jpg",
-  "r001-002.jpg",
-  "r001-003.jpg",
-  "r001-004.jpg",
-  "r001-005.jpg",
-  "r001-006.jpg",
-  "r001-007.jpg",
-  "r001-008.jpg",
-  "r001-009.jpg",
-  "r001-010.jpg",
-  "r001-011.jpg",
-  "r001-012.jpg",
-  "r001-013.jpg",
-  "r001-014.jpg",
-  "r001-015.jpg",
-  "r001-016.jpg",
-  "r001-017.jpg",
-  "r001-018.jpg",
-  "r001-019.jpg",
-  "r001-020.jpg",
-  "r001-021.jpg",
-  "r001-022.jpg",
-  "r001-023.jpg",
-  "r001-024.jpg",
-  "r001-025.jpg",
-  "r001-026.jpg",
-  "r001-027.jpg",
-  "r001-028.jpg",
-  "r001-029.jpg",
-  "r001-030.jpg",
-  "r001-031.jpg",
-  "r001-032.jpg",
-  "r001-033.jpg",
-  "r001-034.jpg",
-  "r001-035.jpg",
-  "r001-036.jpg",
-  "r001-037.jpg",
-  "r001-038.jpg",
-  "r001-039.jpg",
-  "r001-040.jpg",
-  "r001-041.jpg",
-  "r001-042.jpg",
-  "r001-043.jpg",
-  "r001-044.jpg",
-  "r001-045.jpg",
-  "r001-046.jpg",
-  "r001-047.jpg",
-  "r001-048.jpg",
-  "r001-049.jpg",
-  "r001-050.jpg",
-  "r001-051.jpg",
-  "r001-052.jpg",
-  "r001-053.jpg",
-  "r001-054.jpg",
-  "r001-055.jpg",
-  "r001-056.jpg",
-  "r001-057.jpg",
-  "r001-058.jpg",
-  "r001-059.jpg",
-  "r001-060.jpg",
-  "r001-061.jpg",
-  "r001-062.jpg",
-  "r001-063.jpg",
-  "r001-064.jpg"
+  { filename: "r001-001.jpg", caption: "Stroll" },
+  { filename: "r001-002.jpg", caption: "The band" },
+  { filename: "r001-003.jpg", caption: "Baltic Coast" },
+  { filename: "r001-004.jpg", caption: "Feast" },
+  { filename: "r001-005.jpg", caption: "Fish - Denied" },
+  { filename: "r001-006.jpg", caption: "Cycle" },
+  { filename: "r001-007.jpg", caption: "Before the argument" },
+  { filename: "r001-008.jpg", caption: "After the argument" },
+  { filename: "r001-009.jpg", caption: "Weather discussion" },
+  { filename: "r001-010.jpg", caption: "Thinking about laser pointers" },
+  { filename: "r001-011.jpg", caption: "Thinking even more about laser pointers" },
+  { filename: "r001-012.jpg", caption: "La" },
+  { filename: "r001-013.jpg", caption: "The final beer before pregnancy" },
+  { filename: "r001-014.jpg", caption: "Non-alcoholic" },
+  { filename: "r001-015.jpg", caption: "Possibly delicious" },
+  { filename: "r001-016.jpg", caption: "Seldom sunny moments" },
+  { filename: "r001-017.jpg", caption: "See above" },
+  { filename: "r001-018.jpg", caption: "Cool guy linkedin" },
+  { filename: "r001-019.jpg", caption: "Thomas the Tank engine's magic railroad" },
+  { filename: "r001-020.jpg", caption: "Atsipisk nu" },
+  { filename: "r001-021.jpg", caption: "Check this cool stuff out" },
+  { filename: "r001-022.jpg", caption: "Monkey Bridge" },
+  { filename: "r001-023.jpg", caption: "Neighbourhood" },
+  { filename: "r001-024.jpg", caption: "Swell" },
+  { filename: "r001-025.jpg", caption: "Sand in the chain" },
+  { filename: "r001-026.jpg", caption: "Reflected" },
+  { filename: "r001-027.jpg", caption: "Digital" },
+  { filename: "r001-028.jpg", caption: "BMXer caught cheating" },
+  { filename: "r001-029.jpg", caption: "Mid-ride rays" },
+  { filename: "r001-030.jpg", caption: "Before the Pizza" },
+  { filename: "r001-031.jpg", caption: "Sister Act" },
+  { filename: "r001-032.jpg", caption: "Sister Act 2" },
+  { filename: "r001-033.jpg", caption: "Waiting for the light" },
+  { filename: "r001-034.jpg", caption: "Jonines" },
+  { filename: "r001-035.jpg", caption: "Jonines 2" },
+  { filename: "r001-036.jpg", caption: "Mary" },
+  { filename: "r001-037.jpg", caption: "Slow move" },
+  { filename: "r001-038.jpg", caption: "Sister Act 3" },
+  { filename: "r001-039.jpg", caption: "Sister Act 4" },
+  { filename: "r001-040.jpg", caption: "Sister Shame" },
+  { filename: "r001-041.jpg", caption: "Waiting for the toilet" },
+  { filename: "r001-042.jpg", caption: "Rose Darling" },
+  { filename: "r001-043.jpg", caption: "Waiting for his girlfriend" },
+  { filename: "r001-044.jpg", caption: "Post-breakfast" },
+  { filename: "r001-045.jpg", caption: "Oops" },
+  { filename: "r001-046.jpg", caption: "Still waiting" },
+  { filename: "r001-047.jpg", caption: "That building" },
+  { filename: "r001-048.jpg", caption: "Old town" },
+  { filename: "r001-049.jpg", caption: "Stop taking these pictures" },
+  { filename: "r001-050.jpg", caption: "Ok, keep on taking these pictures" },
+  { filename: "r001-051.jpg", caption: "Orbison style" },
+  { filename: "r001-052.jpg", caption: "Something like a tree" },
+  { filename: "r001-053.jpg", caption: "Her name is Rio" },
+  { filename: "r001-054.jpg", caption: "Artsy Wannabe" },
+  { filename: "r001-055.jpg", caption: "Flare 1" },
+  { filename: "r001-056.jpg", caption: "Flare 2" },
+  { filename: "r001-057.jpg", caption: "About to break in to an argument" },
+  { filename: "r001-058.jpg", caption: "Searching for a laser pointer" },
+  { filename: "r001-059.jpg", caption: "Pier" },
+  { filename: "r001-060.jpg", caption: "Sip" },
+  { filename: "r001-061.jpg", caption: "Pier 2" },
+  { filename: "r001-062.jpg", caption: "Storm front" },
+  { filename: "r001-063.jpg", caption: "Ominous" },
+  { filename: "r001-064.jpg", caption: "Velma" }
 ];
 
 const landscape = document.getElementById("landscape");
@@ -217,23 +224,24 @@ const portrait = document.getElementById("portrait");
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 const downloadLink = document.getElementById("download-link");
+const lightboxCaption = document.getElementById("lightbox-caption");
 
 let currentIndex = 0;
 const allImages = [];
 
-// Load thumbnails + categorize, CHANGE THE NAMES HERE OF THE FOLDERS IN THE INDEXED PHOTOS FOLDER
+// Load thumbnails + categorize
 files.forEach((f, i) => {
     const thumb = new Image();
-    thumb.src = "photos/fuji-ilfordhp5/thumbs/" + f;
+    thumb.src = "photos/fuji-ilfordhp5/thumbs/" + f.filename;
 
     thumb.onload = () => {
         const wrap = document.createElement("div");
         wrap.appendChild(thumb);
 
-        const mediumPath = "photos/fuji-ilfordhp5/medium/" + f;
-        const fullPath = "photos/fuji-ilfordhp5/full/" + f;
+        const mediumPath = "photos/fuji-ilfordhp5/medium/" + f.filename;
+        const fullPath = "photos/fuji-ilfordhp5/full/" + f.filename;
 
-        allImages.push({ medium: mediumPath, full: fullPath });
+        allImages.push({ medium: mediumPath, full: fullPath, caption: f.caption });
 
         if (thumb.width > thumb.height) {
             landscape.appendChild(wrap);
@@ -249,9 +257,10 @@ files.forEach((f, i) => {
 });
 
 function showImage() {
-    const { medium, full } = allImages[currentIndex];
+    const { medium, full, caption } = allImages[currentIndex];
     lightboxImg.src = medium;
     downloadLink.href = full;
+    lightboxCaption.textContent = caption;
     lightbox.style.display = "flex";
 }
 
